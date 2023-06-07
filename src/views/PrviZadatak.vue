@@ -54,10 +54,10 @@ export default {
 				requiredKontinuiranoPracenje: value => !!value || 'Required.',
 				ispravnoIme: value => value.length > 3 || "Mora biti vise od 3 znaka",
 				ispravnoPrezime: value => value.length > 3 || "Mora biti vise od 3 znaka",
-				ispravnoBrDolazaka: value => value > 11 && value < 15 || "Broj dolazaka mora biti veći od 11",
-				ispravnoR1: value => value > 20 && value < 40 || "Bodovi moraju prelaziti 50%",
-				ispravnoR2: value => value > 20 && value < 40 || "Bodovi moraju prelaziti 50%",
-				ispravnoKP: value => value > 5 && value < 20|| "Broj bodova mora biti veći od 5"
+				ispravnoBrDolazaka: value => value > 11 && value < 16 || "Broj dolazaka mora biti veći od 11",
+				ispravnoR1: value => value > 20 && value < 41 || "Bodovi moraju prelaziti 50%",
+				ispravnoR2: value => value > 20 && value < 41 || "Bodovi moraju prelaziti 50%",
+				ispravnoKP: value => value > 5 && value < 21|| "Broj bodova mora biti veći od 5"
 			},
 			isFormValid: false,
 		};
