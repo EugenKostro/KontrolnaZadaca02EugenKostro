@@ -5,24 +5,29 @@
 				<v-card class="pa-3" outlined width="600px">
 					<v-card-title></v-card-title>
 					<v-card-text>
-						<v-form>
-							<v-text-field v-model="Ime" label="Ime"></v-text-field>
-							<v-text-field v-model="Prezime" label="Prezime"></v-text-field>
-							<v-text-field v-model="BrojDolazaka" label="Broj dolazaka (maksimalno 15)"></v-text-field>
-							<v-text-field v-model="RezultatPrvogKolokvija" label="Rezultat prvog kolokvija (maksimalno 40 bodova)"></v-text-field>
-							<v-text-field v-model="RezultatDrugogKolokvija" label="Rezultat drugog kolokvija (maksimalno 40 bodova)"></v-text-field>
-							<v-text-field v-model="KontinuiranoPracenje" label="Kontinuirano pracenje (maksimalno 20 bodova)"></v-text-field>
+						<v-form v-model="isFormValid">
+							<v-text-field v-model="Ime" label="Ime" :rules="[rules.requiredIme, rules.ispravnoIme]"></v-text-field>
+							<v-text-field v-model="Prezime" label="Prezime" :rules="[rules.requiredPrezime, rules.ispravnoPrezime]"></v-text-field>
+							<v-text-field v-model="BrojDolazaka" label="Broj dolazaka (maksimalno 15)" :rules="[rules.requiredBrojDolazaka, rules.ispravnoBrDolazaka]"></v-text-field>
+							<v-text-field v-model="RezultatPrvogKolokvija" label="Rezultat prvog kolokvija (maksimalno 40 bodova)" :rules="[rules.requiredRezultatPrvogKolokvija, rules.ispravnoR1]"></v-text-field>
+							<v-text-field v-model="RezultatDrugogKolokvija" label="Rezultat drugog kolokvija (maksimalno 40 bodova)" :rules="[rules.requiredRezultatDrugogKolokvija, rules.ispravnoR2]"></v-text-field>
+							<v-text-field v-model="KontinuiranoPracenje" label="Kontinuirano pracenje (maksimalno 20 bodova)" :rules="[rules.requiredKontinuiranoPracenje, rules.ispravnoKP]"></v-text-field>
 						</v-form>
 					</v-card-text>
 					<v-card-actions>
 						<v-btn
 							color="black"
+							:disabled="!isFormValid"
 							class="white--text"
 							elevation="0"
 							@click="obrisiSveUnesenePodatke">
 							BRISI PODATKE
 						</v-btn>
 						<v-spacer></v-spacer>
+						<v-spacer></v-spacer>
+						<v-spacer></v-spacer>
+						<v-btn class="ma-2" outlined color="red" @click="ocisti">OCISTI</v-btn>
+						<v-btn>OK</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-col>
@@ -42,8 +47,20 @@ export default {
 			RezultatDrugogKolokvija: "",
 			KontinuiranoPracenje: "",
 			rules: {
-				
+				requiredIme: value => !!value || 'Required.',
+				requiredPrezime: value => !!value || 'Required.',
+				requiredBrojDolazaka: value => !!value || 'Required.',
+				requiredRezultatPrvogKolokvija: value => !!value || 'Required.',
+				requiredRezultatDrugogKolokvija: value => !!value || 'Required.',
+				requiredKontinuiranoPracenje: value => !!value || 'Required.',
+				ispravnoIme: value => value.length > 3 || "Mora biti vise od 3 znaka",
+				ispravnoPrezime: value => value.length > 3 || "Mora biti vise od 3 znaka",
+				ispravnoBrDolazaka: value => value > 0 && value < 15 || "Mora biti veci od 0 i manji od 16",
+				ispravnoR1: value => value > 0 && value < 40 || "Mora biti veci od 0 i manji od 41",
+				ispravnoR2: value => value > 0 && value < 40 || "Mora biti veci od 0 i manji od 41",
+				ispravnoKP: value => value > 0 && value < 20|| "Mora biti veci od 0 i manji od 21"
 			},
+			isFormValid: false,
 		};
 	},
 	watch: {},
@@ -64,6 +81,14 @@ export default {
 		obrisiSveUnesenePodatke() {
 			localStorage.clear();
 		},
+		ocisti () {
+        	this.Ime = "";
+			this.Prezime = "";
+			this.BrojDolazaka = "";
+			this.RezultatPrvogKolokvija = "";
+			this.RezultatDrugogKolokvija = "";
+			this.KontinuiranoPracenje = "";
+      	},
 	},
 };
 </script>
