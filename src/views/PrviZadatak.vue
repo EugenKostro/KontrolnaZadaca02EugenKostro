@@ -17,7 +17,6 @@
 					<v-card-actions>
 						<v-btn
 							color="black"
-							:disabled="!isFormValid"
 							class="white--text"
 							elevation="0"
 							@click="obrisiSveUnesenePodatke">
@@ -26,8 +25,8 @@
 						<v-spacer></v-spacer>
 						<v-spacer></v-spacer>
 						<v-spacer></v-spacer>
-						<v-btn class="ma-2" outlined color="red" @click="ocisti">OCISTI</v-btn>
-						<v-btn>OK</v-btn>
+						<v-btn class="ma-2" outlined color="red" @click="ocisti" :disabled="!isFormValid">OCISTI</v-btn>
+						<v-btn :disabled="!isFormValid">OK</v-btn>
 					</v-card-actions>
 				</v-card>
 			</v-col>
@@ -55,10 +54,10 @@ export default {
 				requiredKontinuiranoPracenje: value => !!value || 'Required.',
 				ispravnoIme: value => value.length > 3 || "Mora biti vise od 3 znaka",
 				ispravnoPrezime: value => value.length > 3 || "Mora biti vise od 3 znaka",
-				ispravnoBrDolazaka: value => value > 0 && value < 15 || "Mora biti veci od 0 i manji od 16",
-				ispravnoR1: value => value > 0 && value < 40 || "Mora biti veci od 0 i manji od 41",
-				ispravnoR2: value => value > 0 && value < 40 || "Mora biti veci od 0 i manji od 41",
-				ispravnoKP: value => value > 0 && value < 20|| "Mora biti veci od 0 i manji od 21"
+				ispravnoBrDolazaka: value => value > 11 && value < 15 || "Broj dolazaka mora biti veći od 11",
+				ispravnoR1: value => value > 20 && value < 40 || "Bodovi moraju prelaziti 50%",
+				ispravnoR2: value => value > 20 && value < 40 || "Bodovi moraju prelaziti 50%",
+				ispravnoKP: value => value > 5 && value < 20|| "Broj bodova mora biti veći od 5"
 			},
 			isFormValid: false,
 		};
